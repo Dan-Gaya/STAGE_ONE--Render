@@ -24,7 +24,7 @@ This project is a simple **Number Classification API** built with **Node.js, and
 
 ### 1️⃣ Clone the Repository
 ```sh
-git clone https://github.com/Dan-Gaya/STAGE_ONE.git
+git clone https://github.com/Dan-Gaya/STAGE_ONE--Render.git
 cd STAGE_ONE
 ```
 
@@ -37,7 +37,7 @@ npm install
 ```sh
 npm start
 ```
-The API will be available locally at: `http://localhost:3000`
+The API will be available locally at: `http://localhost:5000`
 
 ## 📌 API Endpoints
 
@@ -84,7 +84,7 @@ If something goes wrong on the server, the response will be:
 
 ## 🤝Deployment
 
-the API was deployed on the Url : (https://stage-one-kappa-bay.vercel.app/api/classify-number)
+the API was deployed on the Url : (https://stage-one-render.onrender.com/api/classify-number)
 
 
 ## 🤝 Contributing
