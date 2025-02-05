@@ -5,17 +5,23 @@ const {
 const classify = async (req, res) => {
     const num = req.query.number || 371;
 
-    const number = parseInt(num, 10);
-
-    // Validate input
-    if (isNaN(number)) {
-        return res.status(400).json({
-            number: "alphabet",
-            error: true,
+    // // Validate input
+    // if (isNaN(num)) {
+    //     return res.status(400).json({
+    //         number: "alphabet",
+    //         error: true,
             
-        });
+    //     });
+    // }
+    
+     // Validate input: Check if 'number' is a valid integer
+     if (!/^-?\d+$/.test(num)) {
+        return res.status(400).json({ 
+            number: "alphabet",
+            error:true
+         });
     }
-
+    const number = parseInt(num, 10);
     // Run synchronous operations first
     const check_prime = checkprime(number);
     const check_perfect = checkperfect(number);
