@@ -1,6 +1,5 @@
 const axios = require('axios');
 
-// In-memory cache (lightweight alternative to LRU for small-scale apps)
 const funFactCache = new Map();
 
 // Timeout helper for API calls

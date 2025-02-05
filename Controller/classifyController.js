@@ -3,18 +3,8 @@ const {
 } = require('../Utils/functions');
 
 const classify = async (req, res) => {
-    const num = req.query.number || 371;
+    const num = req.query.number;
 
-    // // Validate input
-    // if (isNaN(num)) {
-    //     return res.status(400).json({
-    //         number: "alphabet",
-    //         error: true,
-            
-    //     });
-    // }
-    
-     // Validate input: Check if 'number' is a valid integer
      if (!/^-?\d+$/.test(num)) {
         return res.status(400).json({ 
             number: "alphabet",
