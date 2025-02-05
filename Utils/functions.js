@@ -4,7 +4,7 @@ const axios = require('axios');
 const funFactCache = new Map();
 
 // Timeout helper for API calls
-const fetchWithTimeout = async (url, timeout = 100) => {
+const fetchWithTimeout = async (url, timeout = 300) => {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
 
