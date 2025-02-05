@@ -3,16 +3,16 @@ const {
 } = require('../Utils/functions');
 
 const classify = async (req, res) => {
-    const startTime = Date.now(); // Track response time
+    const num = req.query.number || 371;
 
-    const number = parseInt(req.query.number, 10);
+    const number = parseInt(num, 10);
 
     // Validate input
     if (isNaN(number)) {
         return res.status(400).json({
-            number: "Invalid",
+            number: "alphabet",
             error: true,
-            response_time: `${Date.now() - startTime}ms`
+            
         });
     }
 
@@ -35,16 +35,13 @@ const classify = async (req, res) => {
     if (check_odd) properties.push("odd");
     if (check_even) properties.push("even");
 
-    const responseTime = Date.now() - startTime; // Calculate response time
-
     return res.status(200).json({
         number,
         is_prime: check_prime,
         is_perfect: check_perfect,
         properties,
         digit_sum: sum_of_digits,
-        fun_fact,
-        response_time: `${responseTime}ms`
+        fun_fact
     });
 };
 
