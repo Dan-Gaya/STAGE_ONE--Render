@@ -1,43 +1,52 @@
-const { checkprime, checkperfect, isAmstrong, checkOdd, digitSum, checkEven, funFact } = require('../Utils/functions');
+const {
+    checkprime, checkperfect, isAmstrong, checkOdd, digitSum, checkEven, funFact
+} = require('../Utils/functions');
 
 const classify = async (req, res) => {
-    const num = req.query.number || 371;
-    const number = parseInt(num);
+    const startTime = Date.now(); // Track response time
 
-    // Validate input: Check if 'number' is a valid integer
+    const number = parseInt(req.query.number, 10);
+
+    // Validate input
     if (isNaN(number)) {
         return res.status(400).json({
-            number: "alphabet",
-            error: true
+            number: "Invalid",
+            error: true,
+            response_time: `${Date.now() - startTime}ms`
         });
     }
 
-    // Run calculations in parallel for better performance
-    const results = await Promise.all([
-        checkprime(number),
-        checkperfect(number),
-        isAmstrong(number),
-        funFact(number)
-    ]);
-
-    // Get synchronous results immediately
+    // Run synchronous operations first
+    const check_prime = checkprime(number);
+    const check_perfect = checkperfect(number);
     const check_odd = checkOdd(number);
     const check_even = checkEven(number);
     const sum_of_digits = digitSum(number);
 
+    // Run async operations in parallel
+    const [check_armstrong, fun_fact] = await Promise.all([
+        isAmstrong(number),
+        funFact(number)
+    ]);
+
+    // Construct response
     const properties = [];
-    if (results[2]) properties.push("armstrong");
+    if (check_armstrong) properties.push("armstrong");
     if (check_odd) properties.push("odd");
     if (check_even) properties.push("even");
 
+    const responseTime = Date.now() - startTime; // Calculate response time
+
     return res.status(200).json({
         number,
-        "is_prime": results[0],
-        "is_perfect": results[1],
-        "properties": properties,
-        "digit_sum": sum_of_digits,
-        "fun_fact": results[3]
+        is_prime: check_prime,
+        is_perfect: check_perfect,
+        properties,
+        digit_sum: sum_of_digits,
+        fun_fact,
+        response_time: `${responseTime}ms`
     });
 };
 
-module.exports = classify;
+
+module.exports = { classify };
